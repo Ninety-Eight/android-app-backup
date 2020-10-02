@@ -1,2 +1,2 @@
 # android-app-backup
-Backup and Restore Apps on Your Android
+Backup and Restore Apps on Your Android, using ADB
