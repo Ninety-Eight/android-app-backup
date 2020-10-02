@@ -4,10 +4,10 @@ import random
 import os
 ic = input("Pick an option (cancel by inputting any non-options):\n1) Backup all apps\n2) Reinstall from backup\n")
 o = ["1","2"]
-currentdir = "backups"
+currentdir = "backups/"
 dto = str(datetime.date.today())
 rng = random.randrange(1,255)
-workingdir = currentdir + "/backup-" + dto + "-" + str(rng) + "/"
+workingdir = currentdir + "backup-" + dto + "-" + str(rng) + "/"
 chk = subprocess.check_output("adb devices", shell=True)
 chkrs = ''.join(filter(str.isalnum, chk.decode("utf-8")))
 if chkrs == "Listofdevicesattached":
@@ -18,7 +18,6 @@ if ic not in o:
     exit()
 else:
     if ic == "1":
-        print("Good To Go")
         lsapps = subprocess.check_output("adb shell pm list packages -3", shell=True)
         dcd = lsapps.decode("utf-8")
         spllines = dcd.splitlines()
@@ -41,7 +40,25 @@ else:
                         print(r)
                     except:
                         print("error")
-                else:
-                    print("error")
-                    print(cfn)
-                    print(len(cfn))
+    if ic == "2":
+        print("printing list of backup folders:")
+        lsdirs = os.listdir(currentdir)
+        dirs = []
+        for d in lsdirs:
+            chkdirtrue = os.path.isdir(currentdir + d)
+            if chkdirtrue is True:
+                dirs.append(d)
+        print(*dirs, sep="\n")
+        ic3 = input("Please type a folder to restore from. (Case Sensitive) \n")
+        if ic3 not in dirs:
+            print("Invalid Input... Exiting...")
+            exit()
+        if ic3 in dirs:
+            print("restoring...")
+            allapps = os.listdir(currentdir + ic3)
+            for a in allapps:
+                try:
+                    print("Installing " + a)
+                    r = os.system("adb install " + currentdir + ic3 + "/" + a)
+                except:
+                    print("An error occured while installing " + a)
