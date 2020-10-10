@@ -16,7 +16,7 @@ How to use ADB: https://www.xda-developers.com/install-adb-windows-macos-linux/
 
 # What does this do and how does it work?
 
-This application will pull all installed applications from your Android user profile, and place them into a folder in the /backups/ directory. You can then restore from this folder backup at a later point.
+This application backs up either your entire device or all user apps (including data) to a single file in the /backups/ directory. You can then restore said backup with this tool or a simple ADB command.
 
 # I meet the requirements. What do I do?
 

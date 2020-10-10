@@ -1,1 +1,0 @@
-have to add this so git won't ignore me foldr 
